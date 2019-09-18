@@ -9,28 +9,29 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.revature.wp.dao.UserDAOImpl;
-import com.revature.wp.exception.DBException;
-import com.revature.wp.model.UserDetail;
-
-
-@WebServlet("/LoginServlet")
-public class LoginServlet extends HttpServlet {
+/**
+ * Servlet implementation class ReserveCansServlet
+ */
+@WebServlet("/ReserveCansServlet")
+public class ReserveCansServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+       
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		String name = request.getParameter("username");
+        
+        long mobilenumber = Long.parseLong(request.getParameter("phonenumber"));
+        String emailid= request.getParameter("Email_id");
         String password = request.getParameter("password");
         
-        String json = LoginController.login(name,password);
+        String json = LoginController.register(name, mobilenumber,emailid,password);
         PrintWriter out = response.getWriter();
-        out.write(json);        
+        out.write(json);
         out.flush();
+
+
 	}
 
 	
-	
-	}
-
-
+}

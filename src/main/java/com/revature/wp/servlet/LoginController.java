@@ -1,5 +1,8 @@
 package com.revature.wp.servlet;
 
+import java.sql.SQLException;
+import java.util.List;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.revature.wp.dao.UserDAO;
@@ -53,7 +56,7 @@ public class LoginController
              ud.setMobilenumber(mobilenumber);
              ud.setEmail_id(emailid);
              ud.setPassword(password);
-             user.register(name,mobilenumber,emailid,password);
+             user.register(ud);
              message = "success";
              }
          
@@ -76,10 +79,63 @@ public class LoginController
          
          
      }
+  public  String setavailablecans(int noOfCans)
+	{
+		String json = null;
+		String errorMessage = null;
+		UserDAO user=new UserDAOImpl();
+		try {
+			 UserDetail admin = new UserDetail();
+			 admin.setAvailablecans(noOfCans);//getter setter
+			
+			 
+			user.setavailablecans(noOfCans);
+		} catch (Exception e) {
+			errorMessage = e.getMessage();
+		}
+		
+		JsonObject obj = new JsonObject();
+		if (errorMessage != null) {
+			obj.addProperty("errorMessage", errorMessage);
+		}
+		else {
+			obj.addProperty("message", "Successfully Updated");
+		}
+		
+		json = obj.toString();
+		
+		return json;
+	}
+  public  String findAll(){
+	  
+  UserDAOImpl user=new UserDAOImpl();
+      String json = null;
+       List<UserDetail> findAll  = null;
+      String errorMessage = null;
+      try {
+          findAll=user.findAll();
+      } catch (SQLException e) {
+          errorMessage = e.getMessage();
+      }
+      
+      //Convert list to json
+      if ( findAll != null) {
+          Gson gson = new Gson();
+          json = gson.toJson(findAll);
+      }
+      if (errorMessage != null) {
+          JsonObject obj = new JsonObject();
+          obj.addProperty("errorMessage", errorMessage);
+      }
+      return json;
+  }
      
      public static void main(String[] args) {
-        // testLogin();
-        testRegister();
+       // testLogin();
+        //testRegister();
+        testsetavailablecans(); 
+        testavailablecans(); 
+        
          
      }
          
@@ -99,18 +155,35 @@ public class LoginController
          public static void testRegister() {
              
              System.out.println("Test Case 1: Valid User");
-             String validUserJson = LoginController.register("priyanka",876543211l,"g22@gmail.com","1234");
+             String validUserJson = LoginController.register("priyanka",876543211l,"k@gmail.com","1234");
              System.out.println(validUserJson);
              
              System.out.println("Test Case 2: Invalid User");
-             String invalidUserJson = LoginController.register("111",765432112,"ooo@gmail.com","pop");
+             String invalidUserJson = LoginController.register("111",765432112,"g22@gmail.com","pop");
              System.out.println(invalidUserJson);
          
          
          
          
      }
+         public static void testsetavailablecans() 
+         {
+         
+        	 LoginController controller = new LoginController();
+     		String json = controller.setavailablecans(1001);
+     		System.out.println(json);
+     	
+     		
+         }
+         public static void testavailablecans() 
+         {
+         
+        	 LoginController controller = new LoginController();
+     		String json = controller.findAll();
+     		System.out.println(json);
+         
 		 }
+}
 	
 	
 

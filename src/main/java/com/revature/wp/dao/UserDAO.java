@@ -1,6 +1,7 @@
 package com.revature.wp.dao;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.revature.wp.exception.DBException;
 import com.revature.wp.model.UserDetail;
@@ -13,7 +14,7 @@ public interface UserDAO
 	
 	UserDetail login(String name, String password) throws SQLException, DBException;
 	
-	UserDetail register(UserDetail user) throws SQLException, DBException;
+	void register(UserDetail use) throws SQLException, DBException;
 
 	void setName(String name);
 
@@ -23,7 +24,11 @@ public interface UserDAO
 
 	void setEmail_id(String email_id);
 
-	void register(String name, long mobilenumber, String emailid, String password);
+	void setavailablecans(int noOfCans) throws SQLException;
+	
+	List<UserDetail> findAll() throws SQLException;
+
+
 }
 
 

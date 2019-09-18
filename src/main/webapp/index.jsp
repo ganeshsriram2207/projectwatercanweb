@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <script src="js/bootstrap.min.js"></script>
 <meta charset="ISO-8859-1">
-<body>
+<body style ="text-align: center">
 	<header>
 
 		<!-- Fixed navbar -->

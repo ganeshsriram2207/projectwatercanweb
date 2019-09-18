@@ -22,25 +22,17 @@ public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final UserDetail UserDetail = null;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public RegisterServlet() {
-        super();
-       
-    }
+    
+   
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		
-		    
-		        
 		         String name = request.getParameter("username");
+		            
+		            long mobilenumber = Long.parseLong(request.getParameter("phonenumber"));
+		            String emailid= request.getParameter("Email_id");
 		            String password = request.getParameter("password");
-		            long mobilenumber = Long.parseLong(request.getParameter("mobilenumber"));
-		            String emailid= request.getParameter("emailid");
 		            
 		            String json = LoginController.register(name, mobilenumber,emailid,password);
 		            PrintWriter out = response.getWriter();
@@ -50,13 +42,6 @@ public class RegisterServlet extends HttpServlet {
 		            
 		            }        
 		    
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+	
 
 }
